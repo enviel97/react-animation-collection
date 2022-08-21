@@ -9,7 +9,13 @@ body {
 }
 
 section {
+  margin: 1rem;
   min-height: 100vh;
+  scroll-snap-type: y mandatory;
+}
+
+h1 {
+  color: white;
 }
 
 .center {
@@ -20,5 +26,6 @@ section {
 
 .container {
   position: relative;
+  height: 100%;
   width: 100%;
 }
