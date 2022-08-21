@@ -1,0 +1,196 @@
+$size: 300px;
+$starSize: 100px;
+$brightnessWidth: 150px; // 300px / 2
+$brightnessHeight: 80px;
+$radiusShake: 20deg;
+$liquidColor: #41c1fb;
+$liquidColorDark: #1fa4e0;
+
+@keyframes shaking {
+  0%,
+  50%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate($radiusShake);
+  }
+  75% {
+    transform: rotate(-$radiusShake);
+  }
+}
+
+@keyframes shaking-reverse {
+  0%,
+  50%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-$radiusShake);
+  }
+  75% {
+    transform: rotate($radiusShake);
+  }
+}
+
+@keyframes wave {
+  0%,
+  50%,
+  100% {
+    clip-path: polygon(
+      0 100%,
+      0 38%,
+      4% 24%,
+      9% 12%,
+      19% 8%,
+      27% 18%,
+      35% 26%,
+      46% 29%,
+      58% 26%,
+      67% 23%,
+      75% 20%,
+      85% 21%,
+      93% 23%,
+      100% 26%,
+      100% 100%
+    );
+  }
+  25%,
+  75% {
+    clip-path: polygon(
+      0 100%,
+      0 38%,
+      6% 29%,
+      13% 24%,
+      23% 21%,
+      32% 24%,
+      39% 30%,
+      51% 33%,
+      62% 31%,
+      72% 23%,
+      80% 17%,
+      89% 12%,
+      96% 16%,
+      100% 22%,
+      100% 100%
+    );
+  }
+}
+
+@keyframes ringRotate {
+  0% {
+    transform: translate($size, -100px) scale(0.4) rotate(0deg);
+    z-index: 201;
+  }
+  50% {
+    transform: translate(-$size, 100px) scale(0.3) rotate(180deg);
+    z-index: 201;
+  }
+  50.00001% {
+    transform: translate(-$size, 100px) scale(0.3) rotate(180deg);
+    z-index: 203;
+  }
+  100% {
+    transform: translate($size, -100px) scale(0.4) rotate(360deg);
+    z-index: 203;
+  }
+}
+
+.bowl {
+  position: relative;
+  width: $size;
+  height: $size;
+  background: rgba($color: #ffffff, $alpha: 0.1);
+  border: 8px solid transparent;
+  border-radius: 50%;
+  transform-origin: bottom center;
+  animation: shaking 5s linear infinite;
+  backdrop-filter: blur(10px);
+  z-index: 202;
+
+  &::before {
+    // hold
+    content: "";
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: 40%;
+    height: 30px;
+    border: 15px solid #444;
+    border-radius: 50%;
+
+    box-shadow: 0 10px #121212;
+  }
+
+  &::after {
+    // brightness position
+    content: "";
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    width: $brightnessWidth;
+    height: $brightnessHeight;
+    background: rgba($color: #ffffff, $alpha: 0.05);
+  }
+}
+
+.liquid {
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  right: 5px;
+  bottom: 5px;
+  background: $liquidColor;
+  border-radius: 0 0 150px 150px;
+  filter: drop-shadow(0 0 80px $liquidColor) drop-shadow(0 0 150px $liquidColor);
+
+  transform-origin: top center;
+  animation: shaking-reverse 5s linear infinite;
+
+  &::after,
+  &::before {
+    content: "";
+    position: absolute;
+    top: -20px;
+    height: 40px;
+    width: 100%;
+    border-radius: 50%;
+  }
+
+  &::after {
+    background: rgba($color: $liquidColor, $alpha: 0.8);
+    animation: wave 2s linear infinite;
+  }
+
+  &::before {
+    background: rgba($color: $liquidColorDark, $alpha: 1);
+    animation: wave 2s linear infinite;
+  }
+}
+
+.shadow {
+  position: absolute;
+  top: calc(50% + 150px);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: $size;
+  height: 30px;
+  background: rgba($color: #fafafa, $alpha: 0.05);
+  border-radius: 50%;
+}
+
+.star {
+  position: absolute;
+  background: #fff;
+  height: $starSize;
+  width: $starSize;
+  border-radius: 50%;
+  animation: ringRotate 4s ease-in-out infinite;
+  box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px $liquidColor,
+    0 0 40px $liquidColor, 0 0 50px $liquidColor, 0 0 60px $liquidColor;
+}
