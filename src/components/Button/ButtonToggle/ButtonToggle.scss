@@ -5,7 +5,7 @@ $backgroundColor: #121212;
 $iconColorActive: #00ffe7;
 $iconShadowColorActive: #00a1ff;
 
-.btn {
+.btn-toggle {
   position: relative;
   width: $size;
   height: $size;
@@ -57,6 +57,28 @@ $iconShadowColorActive: #00a1ff;
           0 0 0 2px #000,
           0 0 0 4px $backgroundColor, 0 0 0 5.5px $iconShadowColorActive;
       }
+    }
+  }
+  &:active {
+    transition: 0.1s;
+    transform: scale(0.95);
+    // checked icon
+    & .icon {
+      // color: $iconColorActive
+      // text-shadow: 0 0 15px $iconShadowColorActive,
+      //   0 0 30px $iconShadowColorActive;
+      fill: $iconColorActive;
+      filter: drop-shadow(0 0 15px $iconShadowColorActive)
+        drop-shadow(0 0 30px $iconShadowColorActive);
+    }
+    & .btn__box {
+      // color icon
+      box-shadow: 0 0 0 rgba($color: #000, $alpha: 1),
+        inset 0 -2px 5px rgba($color: #000, $alpha: 1),
+        inset 0 1px 1px rgba($color: #fff, $alpha: 0.1),
+        // lighting
+        0 0 0 2px #000,
+        0 0 0 4px $backgroundColor, 0 0 0 5.5px $iconShadowColorActive;
     }
   }
 }

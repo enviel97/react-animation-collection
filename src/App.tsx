@@ -4,7 +4,9 @@ import ButtonToggle from "./components/Button/ButtonToggle";
 function App() {
   return (
     <div className='App'>
-      <ButtonToggle />
+      <section className='center'>
+        <ButtonToggle />
+      </section>
     </div>
   );
 }
